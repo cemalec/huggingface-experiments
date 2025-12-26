@@ -40,6 +40,8 @@ wheels/
 models/
 datasets/
 huggingface_cache/
+model_checkpoints/
+test-trainer/
 
 # Environment
 .env

@@ -51,7 +51,7 @@ def main(checkpoint: str, dataset_name: str, dataset_config: str):
     # Configure training arguments
     logger.info("Configuring training arguments")
     training_args = TrainingArguments(
-        "test-trainer",
+        "model_checkpoints/test-trainer",
         per_device_train_batch_size=16,
         per_device_eval_batch_size=16,
         num_train_epochs=3,
