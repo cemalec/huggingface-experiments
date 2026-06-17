@@ -1,4 +1,5 @@
 # Python
+bert-finetuned-*
 __pycache__/
 *.py[cod]
 *$py.class
