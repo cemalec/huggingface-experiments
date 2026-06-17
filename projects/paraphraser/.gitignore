@@ -1,0 +1,3 @@
+# Generated triple datasets: bulk, regenerable from the scripts + run log.
+# Kept out of git history (push full runs to the HF Hub for sharing).
+data/
