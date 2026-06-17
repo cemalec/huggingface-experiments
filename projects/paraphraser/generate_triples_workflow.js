@@ -9,7 +9,7 @@
  *   validated (source, instruction, axes, target) triples. Subagents run on the
  *   Claude Code plan, so this needs no ANTHROPIC_API_KEY / API budget.
  *
- *   Why this exists: the local Qwen teacher (generate_rewrites*.py) fails the
+ *   Why this exists: a local Qwen teacher (since removed) failed the
  *   hard instruction axes (structural / voice / combinatorial). Claude obeys
  *   them. See CLAUDE.md "Stage B".
  *
