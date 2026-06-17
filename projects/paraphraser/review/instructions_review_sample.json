@@ -1,0 +1,461 @@
+[
+  {
+    "instruction": "Render as a song lyric, a chorus that could repeat.",
+    "axes": [
+      "genre",
+      "voice"
+    ]
+  },
+  {
+    "instruction": "Render as a chiasmus where the second half inverts the first.",
+    "axes": [
+      "structural"
+    ]
+  },
+  {
+    "instruction": "Phrase as a corporate all-hands talking point.",
+    "axes": [
+      "genre",
+      "register"
+    ]
+  },
+  {
+    "instruction": "Phrase as a cliffhanger that creates obligation in the reader.",
+    "axes": [
+      "structural",
+      "tone"
+    ]
+  },
+  {
+    "instruction": "Render in the matter-of-fact wonder of a magical-realist narrator.",
+    "axes": [
+      "voice"
+    ]
+  },
+  {
+    "instruction": "Recast in the affectionate, allusive register of fan-community speak.",
+    "axes": [
+      "register"
+    ]
+  },
+  {
+    "instruction": "Recast as a weather-report line.",
+    "axes": [
+      "genre"
+    ]
+  },
+  {
+    "instruction": "Recast as a horoscope written for an analytic-philosophy seminar.",
+    "axes": [
+      "genre",
+      "register"
+    ]
+  },
+  {
+    "instruction": "Recast as a wedding toast in the voice of a nature-documentary narrator.",
+    "axes": [
+      "genre",
+      "voice"
+    ]
+  },
+  {
+    "instruction": "Phrase as a definition: \"X is the thing that ... \".",
+    "axes": [
+      "structural"
+    ]
+  },
+  {
+    "instruction": "Recast as a definition in a glossary entry.",
+    "axes": [
+      "genre",
+      "register"
+    ]
+  },
+  {
+    "instruction": "Phrase as the opening line of a job posting trying to attract talent.",
+    "axes": [
+      "genre",
+      "tone"
+    ]
+  },
+  {
+    "instruction": "Phrase as an aphorism that could be carved into a desk.",
+    "axes": [
+      "genre",
+      "length"
+    ]
+  },
+  {
+    "instruction": "Render as a one-line code comment explaining why, not what.",
+    "axes": [
+      "genre"
+    ]
+  },
+  {
+    "instruction": "Phrase as a fortune-cookie message with a defiant edge.",
+    "axes": [
+      "genre",
+      "tone"
+    ]
+  },
+  {
+    "instruction": "Phrase as an exclamation that still parses as a complete sentence.",
+    "axes": [
+      "structural"
+    ]
+  },
+  {
+    "instruction": "Phrase as an obituary's lead sentence in plain, unsentimental language.",
+    "axes": [
+      "genre",
+      "register"
+    ]
+  },
+  {
+    "instruction": "Render as a podcast outro thanking the listener.",
+    "axes": [
+      "genre",
+      "voice"
+    ]
+  },
+  {
+    "instruction": "Compress into exactly one short declarative sentence.",
+    "axes": [
+      "length"
+    ]
+  },
+  {
+    "instruction": "Render as a one-star Amazon review in a mock-formal tone.",
+    "axes": [
+      "genre",
+      "tone"
+    ]
+  },
+  {
+    "instruction": "Render in a deferential tone aimed at someone with much more authority.",
+    "axes": [
+      "tone"
+    ]
+  },
+  {
+    "instruction": "Phrase as a protest-sign slogan.",
+    "axes": [
+      "genre"
+    ]
+  },
+  {
+    "instruction": "Recast as a newsletter sign-off line.",
+    "axes": [
+      "genre",
+      "voice"
+    ]
+  },
+  {
+    "instruction": "Recast as a YouTube comment in all caps from someone who didn't read the post.",
+    "axes": [
+      "genre",
+      "tone"
+    ]
+  },
+  {
+    "instruction": "Recast for a customer demanding a refund.",
+    "axes": [
+      "audience"
+    ]
+  },
+  {
+    "instruction": "Phrase as a conspiracy-podcast aside delivered as a rhetorical question.",
+    "axes": [
+      "voice",
+      "structural"
+    ]
+  },
+  {
+    "instruction": "Render as a press-conference no-comment that conveys the meaning anyway.",
+    "axes": [
+      "genre",
+      "tone"
+    ]
+  },
+  {
+    "instruction": "Render in two short hammer-sentences and one long swing.",
+    "axes": [
+      "length"
+    ]
+  },
+  {
+    "instruction": "Recast as a fortune-cookie message in technical jargon for a quantum physicist.",
+    "axes": [
+      "register",
+      "audience"
+    ]
+  },
+  {
+    "instruction": "Render as a self-help guru's mantra fit for a t-shirt.",
+    "axes": [
+      "voice",
+      "genre"
+    ]
+  },
+  {
+    "instruction": "Render as an internal Slack message marked \"for visibility only\".",
+    "axes": [
+      "register",
+      "genre"
+    ]
+  },
+  {
+    "instruction": "Recast as a museum plaque for an audience already bored by museums.",
+    "axes": [
+      "genre",
+      "audience"
+    ]
+  },
+  {
+    "instruction": "Phrase in a mock-serious tone that treats a small thing as monumental.",
+    "axes": [
+      "tone"
+    ]
+  },
+  {
+    "instruction": "Recast as a 404 error page message.",
+    "axes": [
+      "genre"
+    ]
+  },
+  {
+    "instruction": "Phrase for a parent of a teenager being recruited by a college.",
+    "axes": [
+      "audience"
+    ]
+  },
+  {
+    "instruction": "Render as a teacher's chalkboard summary at the end of a lecture.",
+    "axes": [
+      "voice",
+      "length"
+    ]
+  },
+  {
+    "instruction": "Recast for a patient asking what this means for them, today.",
+    "axes": [
+      "audience"
+    ]
+  },
+  {
+    "instruction": "Recast as a Roman historian's summary of an event from this morning.",
+    "axes": [
+      "voice",
+      "register"
+    ]
+  },
+  {
+    "instruction": "Phrase as a horoscope for a Capricorn.",
+    "axes": [
+      "genre"
+    ]
+  },
+  {
+    "instruction": "Render as a horoscope written in legalese.",
+    "axes": [
+      "genre",
+      "register"
+    ]
+  },
+  {
+    "instruction": "Phrase as legal-brief language for an audience of high-school students.",
+    "axes": [
+      "register",
+      "audience"
+    ]
+  },
+  {
+    "instruction": "Phrase as a single haiku-like compression of seventeen syllables.",
+    "axes": [
+      "genre",
+      "length"
+    ]
+  },
+  {
+    "instruction": "Recast as a rhetorical question whose answer is implied.",
+    "axes": [
+      "structural"
+    ]
+  },
+  {
+    "instruction": "Recast in the heightened, ceremonious voice of a nature-documentary narrator.",
+    "axes": [
+      "voice"
+    ]
+  },
+  {
+    "instruction": "Render as a user-facing error message that doesn't blame the user.",
+    "axes": [
+      "genre"
+    ]
+  },
+  {
+    "instruction": "Render as a horoscope in the rhythm of a military communique.",
+    "axes": [
+      "genre",
+      "register"
+    ]
+  },
+  {
+    "instruction": "Recast as a footnoted aside in the voice of a maximalist essayist.",
+    "axes": [
+      "voice",
+      "structural"
+    ]
+  },
+  {
+    "instruction": "Phrase in an exasperated tone of someone repeating themselves.",
+    "axes": [
+      "tone"
+    ]
+  },
+  {
+    "instruction": "Render as a self-help-guru riff delivered in deliberately archaic English.",
+    "axes": [
+      "voice",
+      "register"
+    ]
+  },
+  {
+    "instruction": "Phrase as a tooltip that appears on hover.",
+    "axes": [
+      "genre",
+      "length"
+    ]
+  },
+  {
+    "instruction": "Render in the curt, declarative voice of pared-down literary minimalism.",
+    "axes": [
+      "voice"
+    ]
+  },
+  {
+    "instruction": "Recast as a 404-page line in the voice of a noir detective.",
+    "axes": [
+      "genre",
+      "voice"
+    ]
+  },
+  {
+    "instruction": "Render as a chatbot opening line: eager, neutral, slightly off.",
+    "axes": [
+      "voice",
+      "tone"
+    ]
+  },
+  {
+    "instruction": "Phrase as if explaining to a jury member with no specialized training.",
+    "axes": [
+      "audience"
+    ]
+  },
+  {
+    "instruction": "Phrase as a press-conference statement in an evasive tone that answers literally.",
+    "axes": [
+      "genre",
+      "tone"
+    ]
+  },
+  {
+    "instruction": "Phrase in the diplomatic-cable register: precise, understated, attribution-careful.",
+    "axes": [
+      "register"
+    ]
+  },
+  {
+    "instruction": "Render for a coworker who is frankly tired of hearing about this.",
+    "axes": [
+      "audience"
+    ]
+  },
+  {
+    "instruction": "Recast as a child telling a parent what happened, with the order out of sequence.",
+    "axes": [
+      "voice",
+      "structural"
+    ]
+  },
+  {
+    "instruction": "Recast as direct speech in quotation marks, with an attributive verb.",
+    "axes": [
+      "structural"
+    ]
+  },
+  {
+    "instruction": "Recast as the opening of a thriller chapter, with the reveal withheld.",
+    "axes": [
+      "genre",
+      "structural"
+    ]
+  },
+  {
+    "instruction": "Render as a stoner musing on the topic in present-tense fragments.",
+    "axes": [
+      "voice",
+      "length"
+    ]
+  },
+  {
+    "instruction": "Recast as a single sentence in the voice of a continental philosopher.",
+    "axes": [
+      "voice",
+      "structural"
+    ]
+  },
+  {
+    "instruction": "Recast in the bureaucratic register of a government memo.",
+    "axes": [
+      "register"
+    ]
+  },
+  {
+    "instruction": "Recast as a movie-trailer voiceover line: portentous and present tense.",
+    "axes": [
+      "voice",
+      "tone"
+    ]
+  },
+  {
+    "instruction": "Render as a museum wall text in plain English for a six-year-old.",
+    "axes": [
+      "genre",
+      "audience"
+    ]
+  },
+  {
+    "instruction": "Recast as an album review's opening line.",
+    "axes": [
+      "genre"
+    ]
+  },
+  {
+    "instruction": "Compress by stripping every adjective and adverb that isn't doing real work.",
+    "axes": [
+      "length"
+    ]
+  },
+  {
+    "instruction": "Render as a fortune-cookie message.",
+    "axes": [
+      "genre"
+    ]
+  },
+  {
+    "instruction": "Recast as a missing-pet poster with the essentials fronted.",
+    "axes": [
+      "genre",
+      "structural"
+    ]
+  },
+  {
+    "instruction": "Recast for a regulator who needs to determine whether anything actionable happened.",
+    "axes": [
+      "audience"
+    ]
+  }
+]
