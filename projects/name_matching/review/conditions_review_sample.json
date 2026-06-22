@@ -1,0 +1,298 @@
+[
+  {
+    "condition": "Apply two changes at once: replace the first name with an accepted alternate or nickname; and reduce the first name to an initial.",
+    "axes": [
+      "nickname",
+      "initial"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Apply two changes at once: respell the surname to a phonetic equivalent; and swap the given and family name order.",
+    "axes": [
+      "phonetic",
+      "order"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Apply two changes at once: swap the given and family name order; and uppercase the entire name.",
+    "axes": [
+      "order",
+      "format"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "First name given a homophone spelling (e.g., Catherine -> Katherine).",
+    "axes": [
+      "phonetic"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Family name placed first with no comma (Eastern name order).",
+    "axes": [
+      "order"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Honorific or professional title prepended (Dr., Mr., Ms.).",
+    "axes": [
+      "suffix"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "A patronymic added or dropped.",
+    "axes": [
+      "cultural"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Surname given with vs. without a name particle (e.g., 'van der Berg' -> 'Vanderberg').",
+    "axes": [
+      "cultural"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Surname respelled to a phonetically equivalent variant (e.g., Smith -> Smyth).",
+    "axes": [
+      "phonetic"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Apply two changes at once: substitute one letter in the surname; and swap the given and family name order.",
+    "axes": [
+      "typo",
+      "order"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Apply two changes at once: respell the surname to a phonetic equivalent; and reduce the first name to an initial.",
+    "axes": [
+      "phonetic",
+      "initial"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "A letter doubled somewhere in the surname.",
+    "axes": [
+      "typo"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "An accented letter expanded (ü -> ue, ß -> ss).",
+    "axes": [
+      "translit"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "First name replaced with a common diminutive or nickname (e.g., Robert -> Bob).",
+    "axes": [
+      "nickname"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "A common-name collision: a plausibly different individual with a very similar full name.",
+    "axes": [
+      "negative"
+    ],
+    "label": "non-match"
+  },
+  {
+    "condition": "Inconsistent spacing introduced between name parts.",
+    "axes": [
+      "format"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Apply two changes at once: strip the diacritics from the name; and swap the given and family name order.",
+    "axes": [
+      "translit",
+      "order"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Whole name rendered in ALL CAPS.",
+    "axes": [
+      "format"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Two adjacent letters transposed in the first name.",
+    "axes": [
+      "typo"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Apply two changes at once: strip the diacritics from the name; and reduce the first name to an initial.",
+    "axes": [
+      "translit",
+      "initial"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "A middle initial added that was not in the original.",
+    "axes": [
+      "initial"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Apply two changes at once: replace the first name with an accepted alternate or nickname; and substitute one letter in the surname.",
+    "axes": [
+      "nickname",
+      "typo"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Apply two changes at once: respell the surname to a phonetic equivalent; and uppercase the entire name.",
+    "axes": [
+      "phonetic",
+      "format"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "A compound surname collapsed to a single part.",
+    "axes": [
+      "cultural"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Initials line up but the spelled-out names differ (a different person).",
+    "axes": [
+      "negative"
+    ],
+    "label": "non-match"
+  },
+  {
+    "condition": "Whole name rendered in all lowercase.",
+    "axes": [
+      "format"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Apply two changes at once: collapse or alter a name particle; and reduce the first name to an initial.",
+    "axes": [
+      "cultural",
+      "initial"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Apply two changes at once: respell the surname to a phonetic equivalent; and drop any generational suffix.",
+    "axes": [
+      "phonetic",
+      "suffix"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Middle name reduced to a single middle initial.",
+    "axes": [
+      "initial"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "A keyboard-adjacent letter substituted in the surname.",
+    "axes": [
+      "typo"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Apply two changes at once: strip the diacritics from the name; and drop any generational suffix.",
+    "axes": [
+      "translit",
+      "suffix"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "A DIFFERENT person who shares the same first name but a different surname.",
+    "axes": [
+      "negative"
+    ],
+    "label": "non-match"
+  },
+  {
+    "condition": "Apply two changes at once: substitute one letter in the surname; and uppercase the entire name.",
+    "axes": [
+      "typo",
+      "format"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Apply two changes at once: substitute one letter in the surname; and drop any generational suffix.",
+    "axes": [
+      "typo",
+      "suffix"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Hyphen removed from a hyphenated surname.",
+    "axes": [
+      "format"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Apply two changes at once: swap the given and family name order; and drop any generational suffix.",
+    "axes": [
+      "order",
+      "suffix"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "A letter dropped from the first name.",
+    "axes": [
+      "typo"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Apply two changes at once: replace the first name with an accepted alternate or nickname; and uppercase the entire name.",
+    "axes": [
+      "nickname",
+      "format"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "A single letter substituted in the surname, OCR-style (e.g., i -> l).",
+    "axes": [
+      "typo"
+    ],
+    "label": "match"
+  },
+  {
+    "condition": "Generational suffix added that was not present.",
+    "axes": [
+      "suffix"
+    ],
+    "label": "match"
+  }
+]
