@@ -41,8 +41,6 @@ import re
 from collections import Counter
 from pathlib import Path
 
-import torch
-
 HERE = Path(__file__).parent
 FILTER_VERSION = "v1"
 
@@ -76,11 +74,29 @@ for _v, _suf in {1: "1st", 2: "2nd", 3: "3rd"}.items():
 
 
 def get_device() -> str:
+    import torch  # only needed for the optional --bertscore layer
     if torch.cuda.is_available():
         return "cuda"
     if torch.backends.mps.is_available():
         return "mps"
     return "cpu"
+
+
+def dedup_key(row: dict) -> tuple[str, str]:
+    """Normalized (source, instruction) key for de-duplication.
+
+    Re-emits regenerate the same job, and the stored `source` is the model's echo,
+    which varies by quote style, whitespace, and the missing-space-after-period
+    detokenizer artifact in some seeds ("staring.he" vs "staring. he"). Normalize
+    all three so echo-variants of one job collapse to a single key.
+    """
+    def n(s: str) -> str:
+        s = s or ""
+        s = re.sub(r"[‘’“”'\"`]", '"', s)
+        s = re.sub(r"([.!?])([A-Za-z])", r"\1 \2", s)  # insert missing space after sentence punctuation
+        s = re.sub(r"\s+", " ", s)
+        return s.strip().lower()
+    return (n(row.get("source", "")), n(row.get("instruction", "")))
 
 
 def word_to_int(tok: str):
@@ -168,10 +184,12 @@ def check_number_retention(source: str, target: str) -> list[str]:
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--input", default=str(HERE / "data" / "triples.claude-code.jsonl"))
-    p.add_argument("--bertscore", action="store_true", help="Compute BERTScore F1 (needs evaluate+bert_score).")
+    p.add_argument("--bertscore", action="store_true", help="Compute BERTScore F1 (needs: pip install bert_score).")
     p.add_argument("--bertscore-min", type=float, default=None,
                    help="Global override for the BERTScore soft-flag threshold; default is per-axis (see STRICT_AXES).")
     p.add_argument("--strict", action="store_true", help="Also DROP faithfulness-flagged rows, not just flag them.")
+    p.add_argument("--dedupe", action="store_true",
+                   help="Collapse duplicate (source, instruction) pairs (keeps the latest) before filtering.")
     return p.parse_args()
 
 
@@ -181,6 +199,15 @@ def main() -> None:
     rows = [json.loads(line) for line in in_path.read_text().splitlines() if line.strip()]
     if not rows:
         raise SystemExit(f"No rows in {in_path}")
+
+    if args.dedupe:
+        seen: dict[tuple[str, str], dict] = {}
+        for r in rows:
+            seen[dedup_key(r)] = r  # keep the last (most recent run) occurrence
+        n_before = len(rows)
+        rows = list(seen.values())
+        print(f"dedupe:   {n_before} -> {len(rows)} distinct (source, instruction) "
+              f"({n_before - len(rows)} duplicates removed)")
 
     base = str(in_path)[:-6] if str(in_path).endswith(".jsonl") else str(in_path)
     out_path = Path(base + ".filtered.jsonl")

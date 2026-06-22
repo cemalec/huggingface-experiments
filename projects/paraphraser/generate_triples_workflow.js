@@ -13,10 +13,21 @@
  *   hard instruction axes (structural / voice / combinatorial). Claude obeys
  *   them. See CLAUDE.md "Stage B".
  *
- * HOW TO RUN IT (from a Claude Code session)
+ * BULK MODE (real ~5k seed corpus)
+ *   Don't hand-edit this file for each chunk. Instead:
+ *     1. Build seeds:        python build_seeds.py
+ *     2. Sample instructions: python sample_instructions.py
+ *     3. Emit chunk files:    python emit_chunks.py
+ *        -> writes data/runs/chunk_NNN.workflow.js (one per <=1000-subagent batch),
+ *           each with its own JOBS array, run_id, and gen_timestamp.
+ *     4. Run each chunk:      Workflow({ scriptPath: "...chunk_NNN.workflow.js" })
+ *   The chunk files are self-contained copies of this script with the
+ *   EDIT-PER-RUN block replaced. This file's pilot JOBS below is a small
+ *   sample kept for hand-editing / debugging.
+ *
+ * HOW TO RUN A SINGLE-CHUNK / PILOT (hand-edited, from a Claude Code session)
  *   1. Get a UTC timestamp for the run:   date -u +%Y-%m-%dT%H:%M:%SZ
- *   2. Edit the EDIT-PER-RUN block below: RUN.run_id, RUN.gen_timestamp, SOURCES
- *      (and the instruction sets / tiers if you want different coverage).
+ *   2. Edit the EDIT-PER-RUN block below: RUN.run_id, RUN.gen_timestamp, JOBS.
  *   3. Invoke the Workflow tool with this file:
  *        Workflow({ scriptPath: "projects/paraphraser/generate_triples_workflow.js" })
  *   4. It runs in the background; watch with /workflows. On completion it RETURNS
@@ -53,10 +64,16 @@
 export const meta = {
   name: 'paraphrase-triples',
   description: 'Generate tagged (source, instruction, target) paraphrase triples with Claude as teacher (Haiku=easy, Sonnet=hard)',
-  phases: [{ title: 'Generate', detail: 'one fresh subagent per source x difficulty tier' }],
+  phases: [{ title: 'Generate', detail: 'one fresh subagent per (source x tier) job' }],
 }
 
 // ============================ EDIT PER RUN ==================================
+// JOBS holds one entry per subagent. Each entry carries its own instruction
+// draw (per-subagent sample from the bank), tier (model routing), and the
+// seed-corpus metadata that's stamped onto every emitted triple.
+//
+// For bulk runs this whole block is replaced by emit_chunks.py.
+
 const RUN = {
   run_id: 'claude-pilot-20260617T112732Z',   // unique per run; convention: claude-<label>-<timestamp>
   gen_timestamp: '2026-06-17T11:27:32Z',      // from: date -u +%Y-%m-%dT%H:%M:%SZ
@@ -64,32 +81,21 @@ const RUN = {
   prompt_version: 'v1',                        // bump if buildPrompt() changes, so rows stay distinguishable
 }
 
-const SOURCES = [
-  'The new running shoe uses a carbon-fiber plate embedded in the midsole to improve energy return during long-distance races.',
-  "She finally admitted that she had been wrong about the deadline, though she insisted it didn't change the overall plan.",
-  'Inflation has remained above the central bank\'s target for the third consecutive quarter, prompting renewed debate about whether further rate hikes are warranted.',
-  'Quantum entanglement is a phenomenon in which two particles share a state such that measuring one instantaneously determines the state of the other.',
-  'The proposed legislation would require all publicly listed companies to disclose their direct and indirect greenhouse gas emissions annually.',
-  'Most birds migrate in response to changes in day length rather than to changes in temperature.',
-]
-
-// Difficulty tiers route to different teacher models. Pull instructions from instructions.json,
-// grouped so each tier holds only its own difficulty (so the per-tier model assignment is honored).
-const TIERS = [
-  { tier: 'easy', model: 'haiku', model_id: 'claude-haiku-4-5', instructions: [
-    { instruction: 'Recast as a weather-report line.', axes: ['genre'] },
-    { instruction: 'Compress into exactly one short declarative sentence.', axes: ['length'] },
-    { instruction: 'Render in exactly ten words.', axes: ['length'] },
-    { instruction: 'Recast in the bureaucratic register of a government memo.', axes: ['register'] },
-    { instruction: 'Recast as a definition in a glossary entry.', axes: ['genre', 'register'] },
-  ]},
-  { tier: 'hard', model: 'sonnet', model_id: 'claude-sonnet-4-6', instructions: [
-    { instruction: 'Render as a chiasmus where the second half inverts the first.', axes: ['structural'] },
-    { instruction: 'Render in the matter-of-fact wonder of a magical-realist narrator.', axes: ['voice'] },
-    { instruction: 'Phrase as a cliffhanger that creates obligation in the reader.', axes: ['structural', 'tone'] },
-    { instruction: 'Recast in the laconic, present-tense voice of a hardboiled detective narrator.', axes: ['voice'] },
-    { instruction: 'Recast as a wedding toast in the voice of a nature-documentary narrator.', axes: ['genre', 'voice'] },
-  ]},
+const JOBS = [
+  { seed_idx: 0, source: 'Most birds migrate in response to changes in day length rather than to changes in temperature.',
+    domain: 'pilot', source_id: 'pilot:0',
+    tier: 'easy', model: 'haiku', model_id: 'claude-haiku-4-5',
+    instructions: [
+      { instruction: 'Recast as a weather-report line.', axes: ['genre'] },
+      { instruction: 'Compress into exactly one short declarative sentence.', axes: ['length'] },
+    ] },
+  { seed_idx: 0, source: 'Most birds migrate in response to changes in day length rather than to changes in temperature.',
+    domain: 'pilot', source_id: 'pilot:0',
+    tier: 'hard', model: 'sonnet', model_id: 'claude-sonnet-4-6',
+    instructions: [
+      { instruction: 'Render as a chiasmus where the second half inverts the first.', axes: ['structural'] },
+      { instruction: 'Recast in the laconic, present-tense voice of a hardboiled detective narrator.', axes: ['voice'] },
+    ] },
 ]
 // ========================== END EDIT PER RUN ================================
 
@@ -128,18 +134,11 @@ ${list}
 Return one triple per instruction. Echo the source text and the instruction's axes verbatim in each triple.`
 }
 
-const jobs = []
-for (const source of SOURCES) {
-  for (const t of TIERS) {
-    jobs.push({ source, tier: t.tier, model: t.model, model_id: t.model_id, instructions: t.instructions })
-  }
-}
-
 phase('Generate')
-log(`Generating from ${SOURCES.length} sources x ${TIERS.length} tiers = ${jobs.length} subagents`)
+log(`Generating ${JOBS.length} subagents`)
 
 const results = await parallel(
-  jobs.map((job) => () =>
+  JOBS.map((job) => () =>
     agent(buildPrompt(job), {
       label: `${job.tier}:${job.source.slice(0, 32)}`,
       phase: 'Generate',
@@ -150,13 +149,15 @@ const results = await parallel(
 )
 
 const triples = results.flatMap((r, i) => {
-  const job = jobs[i]
+  const job = JOBS[i]
   const rows = (r && r.triples) ? r.triples : []
   return rows.map((t) => ({
     source: t.source,
     instruction: t.instruction,
     axes: t.axes,
     target: t.target,
+    domain: job.domain,
+    source_id: job.source_id,
     tier: job.tier,
     gen_model: job.model_id,
     gen_backend: RUN.gen_backend,
