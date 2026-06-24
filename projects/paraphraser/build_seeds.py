@@ -16,6 +16,12 @@ all domains, and written to data/seeds.jsonl as one row per sentence:
 
     {"text": str, "domain": str, "source_id": str}
 
+`source_id` is unique per sentence: "<doc-id>#<sentence-index>" (e.g. "amazon:50#2",
+"dd:1268:58#0"). The loaders supply a document-level id; the "#idx" suffix
+disambiguates the multiple sentences a single document contributes. (Before this
+suffix, all sentences from one doc shared an id — see triples.runs.md "Data-integrity
+finding"; backfill_source_ids.py re-keys data generated under the old scheme.)
+
 Reproducible via --seed (controls the streaming order skip). Re-running with
 --domain X appends only that domain and respects dedupe against the existing
 file.
@@ -176,8 +182,13 @@ DOMAINS: dict[str, Callable[[int, int], Iterator[tuple[str, str]]]] = {
 def collect_domain(domain: str, target: int, word_min: int, word_max: int,
                    seed: int, skip: int, seen: set[str]) -> list[dict]:
     out: list[dict] = []
-    for text, source_id in DOMAINS[domain](seed, skip):
-        for sent in split_sentences(text):
+    for doc_id in DOMAINS[domain](seed, skip):
+        text, source_id = doc_id
+        # source_id from the loader is DOCUMENT-level; a document yields many
+        # sentences, so suffix the sentence's position within the document
+        # ("#<idx>") to make source_id unique per seed. Index counts every split
+        # sentence (not just kept ones) so it is stable if filters change.
+        for sent_idx, sent in enumerate(split_sentences(text)):
             sent = detokenize(sent)
             if not is_clean_sentence(sent, word_min, word_max):
                 continue
@@ -185,7 +196,8 @@ def collect_domain(domain: str, target: int, word_min: int, word_max: int,
             if key in seen:
                 continue
             seen.add(key)
-            out.append({"text": sent, "domain": domain, "source_id": source_id})
+            out.append({"text": sent, "domain": domain,
+                        "source_id": f"{source_id}#{sent_idx}"})
             if len(out) >= target:
                 return out
     return out

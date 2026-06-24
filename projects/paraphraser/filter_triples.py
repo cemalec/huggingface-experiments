@@ -1,6 +1,14 @@
 """Stage B filter pass: validate (source, instruction, target) triples before SFT.
 
-Two layers, ordered by how much we can trust them:
+First a normalization step, then two filter layers ordered by how much we trust them.
+
+  0. NORMALIZE (always) -> the teacher sometimes echoes the axis hint into the
+     instruction text as a trailing "(axes: genre, register)". The axes already live
+     in the row's `axes` field, so this is stripped from `instruction` (with whitespace
+     tidied) in both the trainable output and the dedup key. Done at the filter stage,
+     not in the raw store, so the canonical jsonl stays a faithful record of the teacher.
+
+  1. HARD constraint checks (deterministic, axis-specific) -> failing rows are DROPPED.
 
   1. HARD constraint checks (deterministic, axis-specific) -> failing rows are DROPPED.
      These verify instruction compliance we can check exactly:
@@ -82,21 +90,41 @@ def get_device() -> str:
     return "cpu"
 
 
+AXES_SUFFIX_RE = re.compile(r"\s*\(axes:[^)]*\)\s*$", re.IGNORECASE)
+
+
+def clean_instruction(instruction: str) -> str:
+    """Strip the `(axes: ...)` annotation the teacher sometimes echoes into the
+    instruction text, and tidy whitespace.
+
+    The axes already live in the row's `axes` field, so the trailing
+    "(axes: genre, register)" is redundant: it would leak the internal taxonomy
+    into the student's training prompts, and — because the model emits it
+    nondeterministically — it fractures the same instruction into multiple surface
+    forms (with/without the suffix, plus stray double spaces), corrupting the
+    (source, instruction) dedup key. Returns the cleaned single-line text.
+    """
+    s = AXES_SUFFIX_RE.sub("", instruction or "")
+    return re.sub(r"\s+", " ", s).strip()
+
+
 def dedup_key(row: dict) -> tuple[str, str]:
     """Normalized (source, instruction) key for de-duplication.
 
     Re-emits regenerate the same job, and the stored `source` is the model's echo,
     which varies by quote style, whitespace, and the missing-space-after-period
     detokenizer artifact in some seeds ("staring.he" vs "staring. he"). Normalize
-    all three so echo-variants of one job collapse to a single key.
+    all three so echo-variants of one job collapse to a single key. The instruction
+    is additionally stripped of trailing sentence punctuation so the period jitter
+    that pairs with the (axes: ...) echo ("…the end" vs "…the end.") collapses too.
     """
     def n(s: str) -> str:
         s = s or ""
         s = re.sub(r"[‘’“”'\"`]", '"', s)
         s = re.sub(r"([.!?])([A-Za-z])", r"\1 \2", s)  # insert missing space after sentence punctuation
         s = re.sub(r"\s+", " ", s)
-        return s.strip().lower()
-    return (n(row.get("source", "")), n(row.get("instruction", "")))
+        return s.strip().lower().rstrip(".!? ")
+    return (n(row.get("source", "")), n(clean_instruction(row.get("instruction", ""))))
 
 
 def word_to_int(tok: str):
@@ -199,6 +227,19 @@ def main() -> None:
     rows = [json.loads(line) for line in in_path.read_text().splitlines() if line.strip()]
     if not rows:
         raise SystemExit(f"No rows in {in_path}")
+
+    # Normalize the instruction field first: strip the redundant `(axes: ...)` echo
+    # and tidy whitespace, so the trainable output is clean and the dedup below
+    # collapses surface-form variants of the same instruction. The axes metadata is
+    # untouched (it lives in r["axes"]).
+    n_cleaned = 0
+    for r in rows:
+        cleaned = clean_instruction(r.get("instruction", ""))
+        if cleaned != r.get("instruction", ""):
+            r["instruction"] = cleaned
+            n_cleaned += 1
+    if n_cleaned:
+        print(f"normalize: cleaned `(axes: …)`/whitespace from {n_cleaned} instruction fields")
 
     if args.dedupe:
         seen: dict[tuple[str, str], dict] = {}
