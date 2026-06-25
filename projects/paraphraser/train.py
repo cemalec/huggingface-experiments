@@ -186,8 +186,14 @@ def main() -> None:
     print(f"saved adapter + tokenizer → {args.output}")
 
     if args.push_adapter_to:
-        trainer.push_to_hub(args.push_adapter_to)
-        tokenizer.push_to_hub(args.push_adapter_to)
+        from huggingface_hub import HfApi
+        api = HfApi()
+        api.create_repo(args.push_adapter_to, repo_type="model", exist_ok=True)
+        api.upload_folder(
+            folder_path=args.output,
+            repo_id=args.push_adapter_to,
+            repo_type="model",
+        )
         print(f"pushed adapter → huggingface.co/{args.push_adapter_to}")
 
 
