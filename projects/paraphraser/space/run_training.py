@@ -74,6 +74,7 @@ result = subprocess.run(
         "--grad-accum", "4",
         "--max-seq-len", "256",
         "--push-adapter-to", "cemalec/paraphraser-adapter",
+        "--resume-from", "cemalec/paraphraser-adapter:checkpoint-1236",
         "--output", "/tmp/adapter",
     ],
     env=env,

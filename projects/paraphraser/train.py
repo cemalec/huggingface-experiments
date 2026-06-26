@@ -27,6 +27,7 @@ Inference after training:
 
 import argparse
 import json
+import os
 import random
 
 import torch
@@ -93,6 +94,9 @@ def main() -> None:
                         help="HF Hub dataset ID to load instead of local --data file")
     parser.add_argument("--push-adapter-to", default=None,
                         help="HF Hub model ID to push adapter after training")
+    parser.add_argument("--resume-from", default=None,
+                        help="Hub checkpoint to resume: 'repo_id:subfolder', "
+                             "e.g. cemalec/paraphraser-adapter:checkpoint-1236")
     args = parser.parse_args()
 
     device = get_device()
@@ -180,7 +184,22 @@ def main() -> None:
         processing_class=tokenizer,     # replaces 'tokenizer=' in TRL ≥1.0
     )
 
-    trainer.train()
+    resume_checkpoint = None
+    if args.resume_from:
+        repo_id, _, subfolder = args.resume_from.partition(":")
+        local_dir = "/tmp/resume_ckpt"
+        print(f"Downloading checkpoint from {args.resume_from} ...", flush=True)
+        from huggingface_hub import snapshot_download
+        snapshot_download(
+            repo_id=repo_id,
+            allow_patterns=[f"{subfolder}/*"] if subfolder else None,
+            local_dir=local_dir,
+            token=os.environ.get("HF_TOKEN"),
+        )
+        resume_checkpoint = os.path.join(local_dir, subfolder) if subfolder else local_dir
+        print(f"Resuming from {resume_checkpoint}", flush=True)
+
+    trainer.train(resume_from_checkpoint=resume_checkpoint)
     trainer.save_model(args.output)
     tokenizer.save_pretrained(args.output)
     print(f"saved adapter + tokenizer → {args.output}")
