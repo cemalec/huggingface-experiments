@@ -199,6 +199,19 @@ def main() -> None:
         resume_checkpoint = os.path.join(local_dir, subfolder) if subfolder else local_dir
         print(f"Resuming from {resume_checkpoint}", flush=True)
 
+    # torch 2.6 changed weights_only default to True; rng_state.pth contains
+    # numpy RNG state which needs explicit allowlisting before checkpoint load.
+    try:
+        import numpy as np
+        torch.serialization.add_safe_globals([
+            np.core.multiarray._reconstruct,
+            np.ndarray,
+            np.dtype,
+            np.core.multiarray.scalar,
+        ])
+    except (AttributeError, ImportError):
+        pass
+
     trainer.train(resume_from_checkpoint=resume_checkpoint)
     trainer.save_model(args.output)
     tokenizer.save_pretrained(args.output)
