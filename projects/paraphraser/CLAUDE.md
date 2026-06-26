@@ -73,6 +73,42 @@ The workflow itself (`generate_triples_workflow.js`):
 | `data/triples.claude-code.flagged.jsonl` | Filter output: dropped + soft-flagged rows, with reasons |
 | `triples.runs.md` | Run log: one row per `run_id` with its params |
 | `review/triples_review_sample.jsonl` | *(legacy)* Qwen Stage B review subset |
+| `train.py` | LoRA SFT training script; `--resume-from repo:subfolder` resumes from Hub checkpoint |
+| `eval_instructions.json` | **50 holdout instructions** — new framings not in `instructions.json`; used only for eval, never training |
+| `run_eval_inference.py` | Holdout eval step 1: runs epoch-1 + epoch-3 checkpoints on 50 holdout pairs → `data/eval_judge_inputs.jsonl` |
+| `emit_eval_workflow.py` | Holdout eval step 2: emits `data/eval_judge_workflow.js` (50 Opus judge subagents) |
+| `aggregate_eval_scores.py` | Holdout eval step 3: per-axis score table → `review/eval_judge_summary.md` |
+| `data/eval_judge_inputs.jsonl` | Holdout eval inputs: 50 rows with both checkpoint outputs inline |
+| `data/eval_judge_workflow.js` | Emitted judge workflow; run via `Workflow({ scriptPath: "..." })` |
+| `data/eval_judge_scores.jsonl` | Judge scores (written by aggregate_eval_scores.py from workflow output) |
+| `review/eval_judge_summary.md` | Per-axis holdout eval summary (written by aggregate_eval_scores.py) |
+| `review/checkpoint_comparison.md` | Side-by-side epoch-1 vs epoch-3 outputs on the 20-example training-bank eval set |
+| `review/eval_baseline.md` | Original 20-example eval with training-bank instructions (epoch-3 outputs) |
+| `review/professional_eval.md` | Professional development summary of the experiment |
+| `review/blog_post.md` | Blog post draft |
+| `space/` | HF Spaces training environment (Docker + run_training.py) |
+
+## Holdout evaluation
+
+Three-step pipeline for rigorous post-training evaluation:
+
+```
+python run_eval_inference.py           # ~20 min on MPS; writes data/eval_judge_inputs.jsonl
+python emit_eval_workflow.py           # writes data/eval_judge_workflow.js
+# in Claude Code session:
+Workflow({ scriptPath: "projects/paraphraser/data/eval_judge_workflow.js" })
+# after workflow completes, save the returned JSON to a file, then:
+python aggregate_eval_scores.py --scores-json /path/to/result.json
+```
+
+**What makes this a holdout eval**: sources are val-split rows 20–69 (never seen during training);
+instructions come entirely from `eval_instructions.json` (50 new framings not present in the
+250-instruction training bank). Neither the specific source sentences nor the instructions were
+exposed to the model during SFT.
+
+**Judge model**: Opus (claude-opus-4-8), one subagent per example, scoring both checkpoints
+side-by-side so the same standard is applied to both. Three dimensions: adherence (followed the
+style instruction?), faithfulness (preserved source meaning?), fluency (natural prose?). Each 0–5.
 
 ## Known gaps before training
 

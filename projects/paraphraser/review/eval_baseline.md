@@ -31,7 +31,7 @@ Yours sincerely,
 
 **LoRA output** *(fill in after training)*
 
-> 
+> My dearest friend, I write to you with some news of our young man's progress this afternoon — he has been dispatched alone into the dressing room for a short walk at the interval, and then, when it is time to replace Ander Herrera in the starting line-up, he has arrived ready and prepared. I trust you will find this report of interest. Yours faithfully, a member of the squad.
 
 ---
 
@@ -49,7 +49,7 @@ Yours sincerely,
 
 **LoRA output** *(fill in after training)*
 
-> 
+> Conditions have shifted: initial low-pressure systems moved in, but now high-pressure fronts are moving in faster than expected.
 
 ---
 
@@ -67,7 +67,7 @@ Yours sincerely,
 
 **LoRA output** *(fill in after training)*
 
-> 
+> Before we begin, please note that this section features a subtle dynamic shift—a crescendo followed by a gradual diminuendo—allowing you to experience the piece's full range of expression.
 
 ---
 
@@ -85,7 +85,7 @@ Yours sincerely,
 
 **LoRA output** *(fill in after training)*
 
-> 
+> Capricorn (Dec 22–Jan 19): Your practical instincts will guide you through challenging moments. A child's safety is your priority—keep them stable when they're vulnerable.
 
 ---
 
@@ -103,7 +103,7 @@ Yours sincerely,
 
 **LoRA output** *(fill in after training)*
 
-> 
+> And here we observe what few people realize: Walter Dean Myers — this remarkable creature of letters — has spent his life writing for children, and it is precisely that dedication that makes him so extraordinary. Ladies and gentlemen, please raise your glasses.
 
 ---
 
@@ -133,7 +133,7 @@ The investigation is ongoing. Further details will be provided once all relevant
 
 **LoRA output** *(fill in after training)*
 
-> 
+> At approximately 1400 hours on [date], thermodynamic structure was determined and confirmed to allow flux tube to remain in mechanical equilibrium. No further action required at this time.
 
 ---
 
@@ -151,7 +151,7 @@ The investigation is ongoing. Further details will be provided once all relevant
 
 **LoRA output** *(fill in after training)*
 
-> 
+> Look, these deleted scenes are genuinely excellent—yes, even the ones that made you laugh until you cried—and yes, the Jay and Silent Bob scene with Fat Albert is genuinely funny, which is why it worked for you.
 
 ---
 
@@ -169,7 +169,7 @@ The investigation is ongoing. Further details will be provided once all relevant
 
 **LoRA output** *(fill in after training)*
 
-> 
+> How charming that you've found this rather pedestrian affair—a mere imitation of Argento's work—though one must admit it lacks his considerable craftsmanship. The plot itself serves merely as pretext for these unfortunate scenes involving amputation, disembowelment, throat-cutting, gunshot wounds, knife injuries, and the aforementioned young cannibal.
 
 ---
 
@@ -189,7 +189,7 @@ Hall effect changes.
 
 **LoRA output** *(fill in after training)*
 
-> 
+> Microwaves twist the electrons — / their resistivity changes, flows shift — / two dimensions now flow.
 
 ---
 
@@ -207,7 +207,7 @@ Hall effect changes.
 
 **LoRA output** *(fill in after training)*
 
-> 
+> Today, the area was handed over — and now it belongs to someone new. The successor to Berkshire Constabulary has become Thames Valley Police. What happens next will change everything.
 
 ---
 
@@ -225,7 +225,7 @@ Hall effect changes.
 
 **LoRA output** *(fill in after training)*
 
-> 
+> Let T denote the set of bath-tub toy alternatives; we observe that ∀t ∈ T, t → ∅ → ∅ (i.e., no recurrence). However, this particular subset S ⊆ T maintains persistent engagement and produces substantial utility output. Consequently, one may assert with confidence that the collection {S} constitutes an optimal choice for young children's playtime.
 
 ---
 
@@ -243,7 +243,7 @@ Hall effect changes.
 
 **LoRA output** *(fill in after training)*
 
-> 
+> The page you're looking for isn't here anymore — not on Facebook, not on Twitter, not anywhere. But I know what happened that day, and it wasn't pretty. The kid was just trying to document his own death. He called it 'Rush.' That's how they do things around here.
 
 ---
 
@@ -263,7 +263,20 @@ The **Cristo de la Expiración**, a 17th-century Roman Catholic devotional woode
 
 **LoRA output** *(fill in after training)*
 
-> 
+> Key points:
+• Devotional image — 17th century.
+• Roman Catholic origin.
+• Wooden material.
+• Enshrined in Convento de Santo Domingo.
+• Located in Cartagena de Indias, Colombia.
+• Depicts crucified Jesus.
+• Devotional image (Cristo de la Expiración)
+• 17th century
+• Roman Catholic tradition
+• Wooden representation
+• Enshrined in Convento de Santo Domingo
+• Located in Cartagena de Indias, Colombia
+• Depicts crucified Jesus
 
 ---
 
@@ -281,7 +294,7 @@ The **Cristo de la Expiración**, a 17th-century Roman Catholic devotional woode
 
 **LoRA output** *(fill in after training)*
 
-> 
+> Senior FA officials anticipate that fans will erupt in fury when they learn that the governing body has failed to discipline two players—Malky Mackay and Iain Moody—for exchanging abusive messages online and off: words like 'nigger,' 'faggot,' and 'homophobic' sent through email and text.
 
 ---
 
@@ -299,7 +312,7 @@ The **Cristo de la Expiración**, a 17th-century Roman Catholic devotional woode
 
 **LoRA output** *(fill in after training)*
 
-> 
+> I think I'm starting to understand—King's genius is undeniable, and yet... maybe he isn't just one thing? This book suggests there's more to him than meets the eye.
 
 ---
 
@@ -317,7 +330,7 @@ The **Cristo de la Expiración**, a 17th-century Roman Catholic devotional woode
 
 **LoRA output** *(fill in after training)*
 
-> 
+> Self-consistent, finite-Alfven-wave-propagating, dissipative system seeking partner willing to account for all relevant effects — no hand-waving allowed. Simulations welcome.
 
 ---
 
@@ -335,7 +348,7 @@ The **Cristo de la Expiración**, a 17th-century Roman Catholic devotional woode
 
 **LoRA output** *(fill in after training)*
 
-> 
+> She was Eun Bong-hee — that's Nam Ji-hyun, right? — and she came from Choi Myung-bin, who played Bong-hee when he was younger. He was a prosecutor trainee there too, you know, before he became a lawyer. And then... yeah, she went on to be a taekwondo athlete first, which is what I always wondered about. But that's how it goes.
 
 ---
 
@@ -353,7 +366,7 @@ The **Cristo de la Expiración**, a 17th-century Roman Catholic devotional woode
 
 **LoRA output** *(fill in after training)*
 
-> 
+> The Pullenvale Ward covers 12 suburbs in Brisbane City Council — yes, including parts of Chapel Hill and Chuwar. That's all there is to it.
 
 ---
 
@@ -371,7 +384,7 @@ The **Cristo de la Expiración**, a 17th-century Roman Catholic devotional woode
 
 **LoRA output** *(fill in after training)*
 
-> 
+> We cannot predict what tomorrow will bring—nor should anyone else claim certainty over our future existence.
 
 ---
 
@@ -389,5 +402,5 @@ The **Cristo de la Expiración**, a 17th-century Roman Catholic devotional woode
 
 **LoRA output** *(fill in after training)*
 
-> 
+> fyi / for visibility only — just confirming that the translational energy of the desorbed molecules has been measured using TOF mass spectrometry. no action needed from this thread.
 
