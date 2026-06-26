@@ -69,7 +69,7 @@ result = subprocess.run(
     [
         sys.executable, "train.py",
         "--hub-dataset", "cemalec/paraphraser-triples",
-        "--epochs", "2",
+        "--epochs", "3",
         "--batch-size", "8",
         "--grad-accum", "4",
         "--max-seq-len", "256",
